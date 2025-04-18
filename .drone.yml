@@ -33,9 +33,10 @@ steps:
       password:
         from_secret: docker_password
     when:
-      - main
-    event:
-      - push
+      branch:
+        - main
+      event:
+        - push
 
   - name: deploy-to-ec2
     image: appleboy/drone-ssh:1 # ← correct Drone plugin image
@@ -53,6 +54,7 @@ steps:
         - docker compose pull
         - docker compose up -d
     when:
-      - main
-    event:
-      - push
+      branch:
+        - main
+      event:
+        - push
