@@ -1,0 +1,23 @@
+{
+  "name": "drone-node-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mb689/DockerXDrone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mb689/DockerXDrone/issues"
+  },
+  "homepage": "https://github.com/mb689/DockerXDrone#readme"
+}
