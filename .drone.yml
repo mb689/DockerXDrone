@@ -23,7 +23,7 @@ steps:
   - name: build-and-push
     image: plugins/docker
     settings:
-      repo: yourdockerhubusername/drone-node-app
+      repo: mb2214/dronexdocker
       tags: latest
       username:
         from_secret: docker_username
