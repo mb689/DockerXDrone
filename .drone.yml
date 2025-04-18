@@ -13,35 +13,46 @@
 #       password:
 #         from_secret: docker_password
 
-
-
 kind: pipeline
 type: docker
 name: build-and-deploy
 
 steps:
+  - name: test
+    image: node:18
+    commands:
+      - npm ci
+      - npm test
   - name: build-and-push
     image: plugins/docker
     settings:
-      repo: mb2214/dronexdocker   # ← your Docker Hub repo
+      repo: mb2214/dronexdocker # ← your Docker Hub repo
       tags: latest
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
+    when:
+      - main
+    event:
+      - push
 
   - name: deploy-to-ec2
-    image: appleboy/drone-ssh:1     # ← correct Drone plugin image
+    image: appleboy/drone-ssh:1 # ← correct Drone plugin image
     settings:
       host:
-        from_secret: ssh_host       # EC2 public IP
+        from_secret: ssh_host # EC2 public IP
       username:
-        from_secret: ssh_user       # ec2-user
+        from_secret: ssh_user # ec2-user
       key:
-        from_secret: ssh_key        # your .pem private key
+        from_secret: ssh_key # your .pem private key
       port: 22
       script:
         - cd ~/drone-deploy
         - docker compose down
         - docker compose pull
         - docker compose up -d
+    when:
+      - main
+    event:
+      - push
