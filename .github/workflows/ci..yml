@@ -13,6 +13,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       - name: Set up environment variables
         run: |
           echo "DRONE_RPC_SECRET=${{ secrets.DRONE_RPC_SECRET }}" >> $GITHUB_ENV
@@ -20,7 +28,7 @@ jobs:
           echo "DRONE_SERVER_PROTO=${{ secrets.DRONE_SERVER_PROTO }}" >> $GITHUB_ENV
           echo "DRONE_GITHUB_CLIENT_ID=${{ secrets.DRONE_GITHUB_CLIENT_ID }}" >> $GITHUB_ENV
           echo "DRONE_GITHUB_CLIENT_SECRET=${{ secrets.DRONE_GITHUB_CLIENT_SECRET }}" >> $GITHUB_ENV
-
+          echo "DRONE_RPC_HOST=${{ secrets.DRONE_RPC_HOST }}" >> $GITHUB_ENV
       - name: Start Drone via Docker Compose
         run: |
           docker-compose up -d
@@ -30,3 +38,4 @@ jobs:
           DRONE_SERVER_PROTO: ${{ secrets.DRONE_SERVER_PROTO }}
           DRONE_GITHUB_CLIENT_ID: ${{ secrets.DRONE_GITHUB_CLIENT_ID }}
           DRONE_GITHUB_CLIENT_SECRET: ${{ secrets.DRONE_GITHUB_CLIENT_SECRET }}
+          DRONE_RPC_HOST: ${{ secrets.DRONE_RPC_HOST }}
