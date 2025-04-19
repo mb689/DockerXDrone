@@ -23,6 +23,9 @@ steps:
     commands:
       - npm ci
       - npm test
+    when:
+      event:
+        - pull_request
   - name: build-and-push
     image: plugins/docker
     settings:
