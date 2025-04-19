@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('👋 Launches my drone server on a ec2👋');
+  res.send('👋 Launches my drone server on a ec2 Everything is on the cloud👋');
 });
 
 app.listen(80, '0.0.0.0', () => {
