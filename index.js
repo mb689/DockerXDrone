@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('👋 HTTPs setup on drone serve isntance👋');
+  res.send('👋 Setting https for express web page👋');
 });
 
 app.listen(80, '0.0.0.0', () => {
